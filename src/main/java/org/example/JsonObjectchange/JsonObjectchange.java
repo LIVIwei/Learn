@@ -7,5 +7,8 @@ package org.example.JsonObjectchange;
  * @Description: JSONObject转对象、集合、数组
  */
 public class JsonObjectchange {
-
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
