@@ -41,7 +41,7 @@ public class CheckedException2 {
     }
 
     public static void main(String[] args) {
-        String studentID = "1211401";
+        String studentID = "121140";
         try {
             String score = getScoreByStudentID(studentID);
             System.out.printf("Student ID : %s%n", studentID);
