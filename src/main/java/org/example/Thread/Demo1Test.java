@@ -1,6 +1,4 @@
-package org.example.thread;
-
-import org.junit.Test;
+package org.example.Thread;
 
 // 类里面除了方法就是变量，方法里面可以调用方法
 public class Demo1Test {
