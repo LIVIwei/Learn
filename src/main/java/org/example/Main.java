@@ -1,5 +1,7 @@
 package org.example;
 
+import org.junit.Test;
+
 /**
  * @Author: ${USER}
  * @Time: ${YEAR}/${MONTH}/${DAY}  ${HOUR}:${MINUTE}
@@ -7,24 +9,24 @@ package org.example;
  */
 
 public class Main {
-    public static class InvalidTriangleException extends RuntimeException {
-        public InvalidTriangleException(float x, float y, float z){
-            super(String.format("Invalid triangle - (%.3f, %.3f, %.3f)", x, y, z));
-        }
-    }
-
-    private static float getArea(float x, float y, float z) {
-        if ((x + y < z) || (x + z < y) || (y + z < x)){
-            throw new InvalidTriangleException(x,y,z);
-        }else {
-            float p = (x+y+z)/2;
-            return (float) Math.sqrt((p-x)*(p-y)*(p-z)*p);
-        }
-    }
-
-    public static void main(String[] args) {
-
-        System.out.println(Main.getArea(3,4,5));
+    // public static class InvalidTriangleException extends RuntimeException {
+    //     public InvalidTriangleException(float x, float y, float z){
+    //         super(String.format("Invalid triangle - (%.3f, %.3f, %.3f)", x, y, z));
+    //     }
+    // }
+    //
+    // private static float getArea(float x, float y, float z) {
+    //     if ((x + y < z) || (x + z < y) || (y + z < x)){
+    //         throw new InvalidTriangleException(x,y,z);
+    //     }else {
+    //         float p = (x+y+z)/2;
+    //         return (float) Math.sqrt((p-x)*(p-y)*(p-z)*p);
+    //     }
+    // }
+    //
+    // public static void main(String[] args) {
+    //
+    //     System.out.println(Main.getArea(3,4,5));
 
         /*String s1 = "1";
         int s2 = 2;
@@ -51,5 +53,21 @@ public class Main {
         */
         // System.out.println(a == b? 0:1 );
         // System.out.println(c == d? 0:1 );
+    // }
+
+    public static void main(String[] args) {
+        String crdtParty = "C1010411000013";
+        switch (crdtParty) {
+            case "C1030131001288":
+                crdtParty = "交通银行";
+                break;
+            case "C1010411000013":
+                crdtParty = "中行";
+                break;
+            case "C1030935001347":
+                crdtParty = "兴业";
+                break;
+        }
+        System.out.println(crdtParty);
     }
 }

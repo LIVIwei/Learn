@@ -1,0 +1,202 @@
+# spring配置
+spring:
+  redis:
+    host: cnl25039329
+    port: 6379
+    password:
+  datasource:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        loginUsername: admin
+        loginPassword: 123456
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,slf4j
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      datasource:
+        # 主库数据源
+        master:
+          #          driver-class-name: oracle.jdbc.driver.OracleDriver
+          #          url: jdbc:oracle:thin:@cnl25026014.cn.hsbc:2001/UCN_00001_DCEP.cn.hsbc
+          ##          url: jdbc:oracle:thin:@133.14.239.16:2001/UCN_00001_DCEP.cn.hsbc
+          #          username: cmbwlt
+          #          password: cmbwlt
+          #          url: jdbc:oracle:thin:@10.5.181.30:1521:xe
+          #          username: dcwlt_direct_company
+          #          password: dcwlt_direct_company
+#          driver-class-name: oracle.jdbc.driver.OracleDriver
+#          url: jdbc:oracle:thin:@//cnl25056949.cn.hsbc:2001/UCN_00001_ECNY_CORE_CBDC_CHINA.cn.hsbc
+#          username: UCNECNA01
+#          password: HSbc8123
+          # 从库数据源
+          # slave:
+          # username:
+          # password:
+          # url:
+          # driver-class-name:
+      # seata: true    # 开启seata代理，开启后默认每个数据源都代理，如果某个不需要代理可单独关闭
+
+# seata配置
+seata:
+  # 默认关闭，如需启用spring.datasource.dynami.seata需要同时开启
+  enabled: false
+  # Seata 应用编号，默认为 ${spring.application.name}
+  application-id: ${spring.application.name}
+  # Seata 事务组编号，用于 TC 集群名
+  tx-service-group: ${spring.application.name}-group
+  # 关闭自动代理
+  enable-auto-data-source-proxy: false
+  # 服务配置项
+  service:
+    # 虚拟组和分组的映射
+    vgroup-mapping:
+      ruoyi-system-group: default
+  #  config:
+  #    type: nacos
+  #    nacos:
+  #      serverAddr: 133.14.239.14:8848
+  #      group: SEATA_GROUP
+  #      namespace:
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 10.5.181.187:8848
+      namespace:
+
+# mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.dcits.dcwlt.officialwallet
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/*.xml
+  # oracle适配插入null类型
+  configuration:
+    jdbc-type-for-null: 'null'
+
+# swagger配置
+swagger:
+  title: 系统模块接口文档
+  license: Powered By dcits
+  enabled: false
+# 配置rocketmq
+rocketmq:
+  nameServer: 127.0.0.1:9876
+  producer:
+    group: producer-group-1
+  consumer:
+    group: consumer-group-1
+party:
+  hengsheng: C1050431000110
+pay:
+  cashbox:
+    acct: 889900338001
+    name: 对公钱包名称名称
+  cbpsclearing:
+    acct: 889919098001
+    name: CBPS CLEARING ACCOUNT(B ACC)
+app:
+  #是否启动自动兑回定时任务(Y, N)
+  startReconvertJob: N
+  cert:
+    privatekey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCe/6Sriout/GNyNoB17QoadEBwNO2bwJCV4Dm/cavZvhL/7O2Lb0ES/U0K6YptEH/5wsPvfAKVcWzYhpFi6lNqtcjbzbe3oLB99nTMdem10RLWjTN+xsoNCN9exxR9fNighOZrOKpB2EFbrrNream1wVH+gATKlEcQgPiZM7mTgsyoTLxUVrQrSRqqVzMFl47j9+QG0uILsyS2qCBrBjfDGRmB+11xgBiouS2TlJUc7FBI1EcXT2LP5fPuciurtgx0PutMvl7VquG0PWBjiovcg2NCJDSdqhBvzCBJYKd1E1229nrQJpe5mx2k4LxpSqPwgkCVOpj2CG5xAIXvgj3VAgMBAAECggEAAfjv5QTh+LWR0j/k1hGrt2pLxliRvgXkhUdzz/EsDZZzC+O3iqxFpWOpCgKdqf6zZ7jHz3e9XHc8v27j7NM1V7SLmlZx+gAvUFC3YDXyQUQntKupwN/cb871Xmqf0XK0CUG8zgW07v4syWNgbGvk9BFC4CJcbNrsCsNe0h+3JKJMt35pz3AKWCST3NUtaF0gs/XnPUtdYn8THEkH3T53qwKxar4rGf5gQ9yn1WzyF+b/SoG/3PXjWh/nlJUZoPs+fOHWWx3QBzRr5Dxuta/ovHHBXFKlNDqIT3GpZfu/Yum2fN9J3IefsrhwnxRrmMAR7ARdy4Y70kOJ0uSgxOWxAQKBgQDisi8EDPM+jZ6SgH1hAdfXpb5vEQfcr6/JktuBES/LXpHRFiCeDGjJlT9uzriu/1YTwDU8kU/j6CTl7bFIGuttpZEtjaklmCUxY/7pc4ikXSmXM+SW6QvkVz1QQ1ePB+1xbQfrcZZxAPKD9FeZyaxwlZ5/pCPifYrnBxOKhX+MQQKBgQCzjTgTAxsa3y+5yStMpg9cNsqOFqpfxkyIXqNTYKkbodElVP+jUbuYrw2Fb0e9iyM+Q6Yqu5tDtAhPqQBtxgv34SeGqAsaD7j7/kW5VxggseRoNo057WE65yFIa7Ji2H32z4NEzJ6QaeTzRISDjcZLQjzsvrLJNP35Q/9aB06clQKBgQDZV75N4uCfW4XprbkHdY3sGeNPdwOTqPkfiGZdAw5Qq/Wfgdh5zyn0AtyTLyzP0sxDGWexDxyKRDqEG3R5zh1jvXZIN2YxPgKCrP1r8zHRa+SBK+aAbSTSonWNa1MaNZ6HveH28Kss4pyguHX4Yuup8TjJ5aPl9TlkMFui1kUoQQKBgD3SQN1i82E0OXWJi2wPvTgt8V4s9aqWV2GY3DloDbHi7GUjOAXerW3r0AcCgrwDfTYCCuOpxtLv2PC8qtYhG5vUnUxi7beidDnnmdAv6bHQLmmnZsbsMc8bJ72Mv1YDXpOtbXAx1+K3Y0pTbCDznrPo8Zs+KcbXhR7fR7uSyoFlAoGBALVL3pizHTGcEx6hCaFZiQGdprYlCLfqYBdmVBUVtYatof5oM6J9Ehfj0uhDcA6IxMTC57NpDqhKYf9BpAUQV6B+BONKbgGlApzYONgxiG8SDr79OYDTAPzVWxzdKk82xmMwL0drNmaEqcRWSPJ3W6LjUjKxSSoI23Ul7wcWWRBd
+    publickey:
+      tp: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoyafns/CXncS+ECExV86k8YUSP2V/1Ne6MWN+yK6yK2Y7ytny00QtqCd8Sv1e/81npphhI2Z5y49zU8ltMjWxKsLgY0oCu2Exv7qXogK+Xw6FicLNaEnA09+YortCiKzu0tn3s/hvUy5Gmyz23Ch1H0FoSqT+2tbNeZLNagX5BhildTHXF5EKC9lR62NFxLyM4v/bjeWQNTzGrfR/9PK/fZQREVRQsOLLXXC4VZODRGxiwL3pntZM1Yd8CIyQHuaLjQJrie0DfM78wS6PGC8uCK1VznF8Jep8qSz48MOOPHKF536eqSnm/NVSiwdm7QrtxJ7KyboF5K+xL0+txKEcwIDAQAB
+      mobile: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoyafns/CXncS+ECExV86k8YUSP2V/1Ne6MWN+yK6yK2Y7ytny00QtqCd8Sv1e/81npphhI2Z5y49zU8ltMjWxKsLgY0oCu2Exv7qXogK+Xw6FicLNaEnA09+YortCiKzu0tn3s/hvUy5Gmyz23Ch1H0FoSqT+2tbNeZLNagX5BhildTHXF5EKC9lR62NFxLyM4v/bjeWQNTzGrfR/9PK/fZQREVRQsOLLXXC4VZODRGxiwL3pntZM1Yd8CIyQHuaLjQJrie0DfM78wS6PGC8uCK1VznF8Jep8qSz48MOOPHKF536eqSnm/NVSiwdm7QrtxJ7KyboF5K+xL0+txKEcwIDAQAB
+
+  ibmmq:
+    #联机队列
+    #    qname-online: ULECNY.ECNY.ENCY.DCWLT_ONLINE_REQ
+    qname-online: ULECNY.ECNY.ENCY.DCWLT_OFFICIAL_ONLINE_REQ
+    #批量队列
+    qname-batch: ULECNY.ECNY.ENCY.DCWLT_OFFICIAL_BATCH_REQ
+    #对公批量队列
+    qname-official-batch: ULECNY.ECNY.ENCY.DCWLT_OFFICIAL_BATCH_REQ
+    #单队列管理器IP和端口（修改）
+    #    host: cnl25039329
+    #    port: 10424
+    #可以配置多个队列管理器用‘,’ 分割，
+    connNameList: cnl25039329(10424),cnl25039330(10424)
+    #队列管理器
+    queue-manager: '*'
+    #通道
+    channel: ULRETAIL0SCN.DCEP.TM
+    #Auth
+    username: javadm
+    password: javadm
+    #收消息超时时间
+    receive-timeout: 5000
+
+    ssl:
+      use: false
+      #SSL协议
+      protocal: TLSv1.2
+      #算法
+      algorithm: SunX509
+      #加密算法
+      sslCipherSuite: TLS_RSA_WITH_AES_128_CBC_SHA256
+      #keystore 类型
+      keyStoreType: JKS
+      #keystore 路径（修改）
+      #      keyStoreFile: ./TQMDCEP.cnl25026010.jks
+      #      trustKeyStoreFile: ./TQMDCEP.cnl25026010.jks
+      keyStoreFile: /opt/mdw-data/ecny/certs/TQMDCEP.cnl25026010.jks
+      trustKeyStoreFile: /opt/mdw-data/ecny/certs/TQMDCEP.cnl25026010.jks
+      #keystore 密钥（修改）
+      keyStorePass: WOrXlKbLDh1Jdbxuhger0cTXYfdEwV
+      trustKeyStorePass: WOrXlKbLDh1Jdbxuhger0cTXYfdEwV
+http:
+  header:
+    consumerId: HBCN_DCEP
+    deviceId: DCEP
+    correlationId: eowiuiwe9872342hk2932y9weio23
+    clientId: 552fb6fe1a5249029ad56109302c8933
+    clientSecret: 77bdbB1F925544aCA93973E14436ac40
+    systemId: 11751731
+    systemName: EWPBOWM11751731
+    systemNameI: EWPBOWI11751731
+  core:
+    timeout:
+      enable: false
+      read: 10
+      connect: 10
+  path:
+    timeout:
+      enable: false
+      read: 10
+      connect: 10
+auth:
+  page:
+    #测试时有问题把它改为N
+    open: N
+
+sms:
+  signName: 汇丰科技
+  templateCode: SMS_206025321
+  timeout: 5
+  templateMap: '{"SMS001":"【汇丰中国】您尾号为$account的账户，本次签约关联编号尾号为$wltId（取钱包ID后8位）的数字人民币钱包，验证码为$code，慎防诈骗，切勿转发或告知他人。","SMS002":"【HSBC China】Your account ending in $account, this contract is associated with an e-CNY wallet with wallet ID ending in $wltId (the last 8 digits of the wallet ID), and the verification code is $code. Do not forward or inform this message to others."}'
+  contentUrlMap: '{"SMS001":"teamsite_content/iccm/HBCN/CN/user_contents/WPB/control_files/SMS/2130/eCNY_SMS_UAT_template.xsl","SMS002":"teamsite_content/iccm/HBCN/CN/user_contents/WPB/control_files/SMS/2130/eCNY_SMS_UAT_template.xsl"}'
+
+token:
+  b2b:
+    username: CN-ECNYCDBC-UAT
+    password: J2AMzwAbdv4282
+
+#esb地址
+esb:
+  server:
+    url: http://yapi.szfy.com/mock/76/queryCoreAcctInfo
+  mock: false
